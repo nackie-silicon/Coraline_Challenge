@@ -33,24 +33,23 @@ try:
 
     df = pd.DataFrame(sheet.values)
 
-
+    # Split row by empty column
     nan_indices = df.index[df.isna().all(axis=1)]
     df_list = [df.dropna() for df in np.split(df, nan_indices)]
-
     a=df_list[0]
-
     b=df_list[1]
+
+    # Remove duplicate heading column
     b1 = b.iloc[1:]
 
+    # Concatenate row
     result = pd.concat([a, b1], axis=0, ignore_index=True)
 
+    # Assign heading column
     result.columns = result.iloc[0]
     result = result[1:]
 
-
-
-
-    # Create a list with the column names in the first row of the excel workbook
+    # Create a list with the column names in the first row
     column_names = list(result.columns.values)
 
     # Create an empty list 
@@ -76,7 +75,7 @@ try:
     )
     """
 
-
+    # Write a query to create a target table
     table_creation_query_2 =f""" 
         CREATE TABLE IF NOT EXISTS {schema_name}.{table_name_target}( 
                     Category VARCHAR, 
@@ -100,6 +99,7 @@ try:
     # Execute the query using the data list as parameter
     cursor.executemany(insert_data_query, data)
 
+    # Select data for target table
     sql_query = f""" select TEMP."Category", ROUND(TEMP."East",0) AS "East" , ROUND(TEMP."West",0) AS "West" , ROUND((TEMP."East" + TEMP."West"),0) AS "TotalPrice"  from 
     (
     select  "Category", 
