@@ -29,3 +29,13 @@ python Create_user.py
 python Create_database.py
 
 python FoodSales.py
+
+# Result
+
+![result](https://github.com/nackie-silicon/Coraline_Challenge/assets/155009916/06685381-d2be-44f4-8d97-c1cb40c54481)
+
+
+
+![result1](https://github.com/nackie-silicon/Coraline_Challenge/assets/155009916/8bd4578a-a7a5-4649-8885-27988e7f66c5)
+
+
